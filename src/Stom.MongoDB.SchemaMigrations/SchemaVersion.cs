@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace Stom.MongoDB.SchemaMigrations
 {
@@ -14,6 +15,6 @@ namespace Stom.MongoDB.SchemaMigrations
             this.version = Version.Parse(version);
         }
 
-        public abstract bool Apply(IMongoDatabase db);
+        public abstract Task<bool> Apply(IMongoDatabase db);
     }
 }
