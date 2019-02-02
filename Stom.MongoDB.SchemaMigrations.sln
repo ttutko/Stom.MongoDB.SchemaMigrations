@@ -7,6 +7,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{252D31A4-258
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stom.MongoDB.SchemaMigrations", "src\Stom.MongoDB.SchemaMigrations\Stom.MongoDB.SchemaMigrations.csproj", "{94136B34-375C-48A9-B4F6-E558017C4EDF}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{286E21ED-973D-4F6E-969D-5BE6892FF2E0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stom.MongoDB.SchemaMigrations.Test", "test\Stom.MongoDB.SchemaMigrations.Test\Stom.MongoDB.SchemaMigrations.Test.csproj", "{2A0B012E-682E-4162-9DED-E968D6E979F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,8 +36,21 @@ Global
 		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Release|x64.Build.0 = Release|Any CPU
 		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Release|x86.ActiveCfg = Release|Any CPU
 		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Release|x86.Build.0 = Release|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Debug|x64.Build.0 = Debug|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Debug|x86.Build.0 = Debug|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Release|x64.ActiveCfg = Release|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Release|x64.Build.0 = Release|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Release|x86.ActiveCfg = Release|Any CPU
+		{2A0B012E-682E-4162-9DED-E968D6E979F9}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{94136B34-375C-48A9-B4F6-E558017C4EDF} = {252D31A4-2584-4940-AE7A-45F093E0896B}
+		{2A0B012E-682E-4162-9DED-E968D6E979F9} = {286E21ED-973D-4F6E-969D-5BE6892FF2E0}
 	EndGlobalSection
 EndGlobal
