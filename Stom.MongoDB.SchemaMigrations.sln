@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{252D31A4-2584-4940-AE7A-45F093E0896B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stom.MongoDB.SchemaMigrations", "src\Stom.MongoDB.SchemaMigrations\Stom.MongoDB.SchemaMigrations.csproj", "{94136B34-375C-48A9-B4F6-E558017C4EDF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Debug|x64.Build.0 = Debug|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Debug|x86.Build.0 = Debug|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Release|x64.ActiveCfg = Release|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Release|x64.Build.0 = Release|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Release|x86.ActiveCfg = Release|Any CPU
+		{94136B34-375C-48A9-B4F6-E558017C4EDF}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{94136B34-375C-48A9-B4F6-E558017C4EDF} = {252D31A4-2584-4940-AE7A-45F093E0896B}
+	EndGlobalSection
+EndGlobal
