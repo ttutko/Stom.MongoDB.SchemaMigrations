@@ -31,9 +31,12 @@ namespace Stom.MongoDB.SchemaMigrations.Test
             var sut = new SchemaMigrator(db, new SchemaMigratorOptions(), serviceProvider.GetService<ILogger<SchemaMigrator>>());
             sut.Migrations.Add(new Version(0, 1, 0), new Version_0_1_0_migration());
 
-            await sut.ApplyAll();
+            var result = await sut.ApplyAll();
 
-            throw new NotImplementedException();
+            Assert.Equal(0, result.MigrationsSkipped);
+            Assert.Equal(1, result.MigrationsApplied);
+            Assert.Equal(1, result.MigrationsFound);
+
         }
     }
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
 using System.Diagnostics;
+using System.Threading.Tasks;
+using System.Threading;
 
 namespace Stom.MongoDB.SchemaMigrations
 {
@@ -23,9 +25,9 @@ namespace Stom.MongoDB.SchemaMigrations
             Migrations = new SortedList<Version, SchemaVersion>();
         }
 
-        public async System.Threading.Tasks.Task ApplyAll()
+        public async Task<SchemaMigrationResult> ApplyAll()
         {
-            int applied = 0, skipped = 0;
+            var result = new SchemaMigrationResult();
 
             Stopwatch sw = new Stopwatch();
             logger.LogInformation($"Beginning [ApplyAll] action for {Migrations.Count} migrations...");
@@ -39,24 +41,38 @@ namespace Stom.MongoDB.SchemaMigrations
                 latestVersion = latestSchemaAppliedDoc.Key;
             }
 
+            result.StartingVersion = latestVersion;
+            result.MigrationsFound = Migrations.Count;
+
             foreach(var curVersion in Migrations)
             {
                 if(curVersion.Key <= latestVersion)
                 {
                     logger.LogInformation($"Migrations for version {curVersion.Key} skipped as newer version ({latestVersion}) is already applied.");
-                    skipped += 1;
+                    result.MigrationsSkipped += 1;
                     continue;
                 }
 
                 logger.LogInformation($"Applying migrations for {curVersion.Key.ToString()}");
 
                 await curVersion.Value.Apply(db);
+                var newVersion = new SchemaDocument()
+                {
+                    DateApplied = DateTime.UtcNow,
+                    Version = curVersion.Key.ToString()
+                };
+                await UpdateAppliedVersions(db, newVersion);
+                result.MigrationsApplied += 1;
+                result.EndingVersion = curVersion.Key;
 
                 logger.LogInformation($"Done applying migrations for {curVersion.Key.ToString()}");
             }
 
             sw.Stop();
-            logger.LogInformation($"Completed [ApplyAll] action in {sw.ElapsedMilliseconds}ms. Applied: {applied}, Skipped: {skipped}");
+            result.ElapsedMiliseconds = sw.ElapsedMilliseconds;
+            logger.LogInformation($"Completed [ApplyAll] action in {sw.ElapsedMilliseconds}ms. Applied: {result.MigrationsApplied}, Skipped: {result.MigrationsSkipped}");
+
+            return result;
         }
 
         public void ApplyToVersion(string version)
@@ -77,6 +93,11 @@ namespace Stom.MongoDB.SchemaMigrations
             }
 
             return sortedVersions;
+        }
+
+        private async Task UpdateAppliedVersions(IMongoDatabase db, SchemaDocument ver)
+        {
+            await db.GetCollection<SchemaDocument>(options.CollectionName).InsertOneAsync(ver, null, CancellationToken.None);
         }
     }
 }
