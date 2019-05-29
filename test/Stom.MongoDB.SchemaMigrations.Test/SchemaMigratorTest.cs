@@ -28,14 +28,95 @@ namespace Stom.MongoDB.SchemaMigrations.Test
             IMongoClient mongo = new MongoClient();
             IMongoDatabase db = mongo.GetDatabase("SchemaMigrationTest");
 
-            var sut = new SchemaMigrator(db, new SchemaMigratorOptions(), serviceProvider.GetService<ILogger<SchemaMigrator>>());
-            sut.Migrations.Add(new Version(0, 1, 0), new Version_0_1_0_migration());
+            try
+            {
+                var sut = new SchemaMigrator(db, new SchemaMigratorOptions(), serviceProvider.GetService<ILogger<SchemaMigrator>>());
+                sut.Migrations.Add(new Version(0, 1, 0), new Version_0_1_0_migration());
 
-            var result = await sut.ApplyAll();
+                var result = await sut.ApplyAll();
 
-            Assert.Equal(0, result.MigrationsSkipped);
-            Assert.Equal(1, result.MigrationsApplied);
-            Assert.Equal(1, result.MigrationsFound);
+                Assert.Equal(0, result.MigrationsSkipped);
+                Assert.Equal(1, result.MigrationsApplied);
+                Assert.Equal(1, result.MigrationsFound);
+            }
+            finally
+            {
+                TeardownMongoDb();
+            }
+
+        }
+
+        [Fact]
+        public async Task SchemaAtLatestVersionTest()
+        {
+            IMongoClient mongo = new MongoClient();
+            IMongoDatabase db = mongo.GetDatabase("SchemaMigrationTest");
+
+            try
+            {
+                await db.GetCollection<SchemaDocument>("AppliedSchemas").InsertOneAsync(
+                    new SchemaDocument
+                    {
+                        DateApplied = DateTime.Parse("2019-01-01"),
+                        Version = "0.1.0"
+                    }, null);
+
+                var sut = new SchemaMigrator(db, new SchemaMigratorOptions(), serviceProvider.GetService<ILogger<SchemaMigrator>>());
+                sut.Migrations.Add(new Version(0, 1, 0), new Version_0_1_0_migration());
+
+                var result = await sut.ApplyAll();
+
+                Assert.Equal(1, result.MigrationsSkipped);
+                Assert.Equal(0, result.MigrationsApplied);
+                Assert.Equal(1, result.MigrationsFound);
+            }
+            finally
+            {
+                TeardownMongoDb();
+            }
+
+        }
+
+        [Fact]
+        public async Task ApplyingMoreThanOneSchema()
+        {
+            IMongoClient mongo = new MongoClient();
+            IMongoDatabase db = mongo.GetDatabase("SchemaMigrationTest");
+
+            try
+            {
+                //await db.GetCollection<SchemaDocument>("AppliedSchemas").InsertOneAsync(
+                //    new SchemaDocument
+                //    {
+                //        DateApplied = DateTime.Parse("2019-01-01"),
+                //        Version = "0.1.0"
+                //    }, null);
+
+                var sut = new SchemaMigrator(db, new SchemaMigratorOptions(), serviceProvider.GetService<ILogger<SchemaMigrator>>());
+                sut.Migrations.Add(new Version(0, 1, 0), new Version_0_1_0_migration());
+                sut.Migrations.Add(new Version(0, 2, 0), new Version_0_2_0_migration());
+
+                var result = await sut.ApplyAll();
+
+                Assert.Equal(0, result.MigrationsSkipped);
+                Assert.Equal(2, result.MigrationsApplied);
+                Assert.Equal(2, result.MigrationsFound);
+            }
+            finally
+            {
+                TeardownMongoDb();
+            }
+
+        }
+
+        private void TeardownMongoDb()
+        {
+            IMongoClient mongo = new MongoClient();
+            mongo.DropDatabase("SchemaMigrationTest");
+        }
+
+        public void SetupMongoDb()
+        {
 
         }
     }
