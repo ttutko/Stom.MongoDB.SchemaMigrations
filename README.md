@@ -6,6 +6,8 @@ This library is designed to allow a developer to define and apply changes to a M
 
 Add a reference to the nuget package in your project using one of the methods below.
 
+** NOTE: The nuget packages are not yet created and these installation instructions will not yet work **
+
 Visual Studio Package Manager Console:  
 `Install-Package Stom.MongoDB.SchemaMigrations`
 
