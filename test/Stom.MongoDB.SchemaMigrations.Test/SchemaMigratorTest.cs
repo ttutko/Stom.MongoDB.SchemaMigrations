@@ -61,7 +61,8 @@ namespace Stom.MongoDB.SchemaMigrations.Test
         [Fact(Skip="")]
         public async Task SchemaAtLatestVersionTest()
         {
-            IMongoClient mongo = new MongoClient();
+            IMongoClient mongo = new MongoClient(new MongoClientSettings 
+                { ConnectTimeout = TimeSpan.FromSeconds(2), ServerSelectionTimeout = TimeSpan.FromSeconds(2) });
             IMongoDatabase db = mongo.GetDatabase("SchemaMigrationTest");
 
             try
@@ -92,7 +93,8 @@ namespace Stom.MongoDB.SchemaMigrations.Test
         [Fact(Skip="")]
         public async Task ApplyingMoreThanOneSchema()
         {
-            IMongoClient mongo = new MongoClient();
+            IMongoClient mongo = new MongoClient(new MongoClientSettings 
+                { ConnectTimeout = TimeSpan.FromSeconds(2), ServerSelectionTimeout = TimeSpan.FromSeconds(2) });
             IMongoDatabase db = mongo.GetDatabase("SchemaMigrationTest");
 
             try

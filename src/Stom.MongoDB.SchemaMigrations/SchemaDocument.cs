@@ -11,6 +11,6 @@ namespace Stom.MongoDB.SchemaMigrations
         [BsonId]
         public ObjectId Id { get; set; }
         public string Version { get; set; }
-        public DateTime DateApplied { get; set; }
+        public DateTime? DateApplied { get; set; }
     }
 }
